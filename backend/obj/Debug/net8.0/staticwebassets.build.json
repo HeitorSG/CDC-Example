@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "sODJbZPX9sKCsmp30nIjckSn2bw3JE7c1+UjL/tk/so=",
+  "Source": "KafkaDebeziumExampleBackend",
+  "BasePath": "_content/KafkaDebeziumExampleBackend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
