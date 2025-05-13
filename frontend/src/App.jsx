@@ -37,7 +37,7 @@ function App() {
 
   useEffect(() => {
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl('http://localhost:8080/loghub')
+      .withUrl('https://blood-bugs-centered-recognized.trycloudflare.com/loghub')
       .withAutomaticReconnect()
       .build();
 
@@ -58,7 +58,7 @@ function App() {
 
   const executeSql = async () => {
     try {
-      const res = await fetch('http://localhost:8080/exec-sql', {
+      const res = await fetch('https://blood-bugs-centered-recognized.trycloudflare.com/exec-sql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sql }),

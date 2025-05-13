@@ -15,7 +15,7 @@ export default defineConfig({
       clientPort: 443          // Use the appropriate port for Cloudflare tunnel
     },
     allowedHosts: [
-      'preview-letters-salary-beyond.trycloudflare.com',  // Explicitly allow Cloudflare tunnel
+      'necessarily-book-store-magnitude.trycloudflare.com',  // Explicitly allow Cloudflare tunnel
       'all'  // Allow all hosts for general access
     ],
   }

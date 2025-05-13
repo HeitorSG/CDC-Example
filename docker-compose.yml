@@ -3,6 +3,8 @@ services:
     image: confluentinc/cp-zookeeper:latest
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - app-net
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -12,6 +14,19 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - app-net
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop:3.30.0
+    restart: always
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKER_CONNECT: kafka:9092
+    networks:
+      - app-net
+
 
   postgres:
     image: debezium/postgres:13
@@ -19,6 +34,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: demo
+    networks:
+      - app-net
 
   kafka-connect:
     image: debezium/connect:2.7.3.Final
@@ -32,6 +49,19 @@ services:
       STATUS_STORAGE_TOPIC: my-connect-status
     ports:
       - "8083:8083"
+    networks:
+      - app-net
+  debezium-ui:
+    image: quay.io/debezium/debezium-ui:latest
+    ports:
+      - "8089:8080"
+    depends_on:
+      - kafka-connect
+    environment:
+      KAFKA_CONNECT_URIS: http://kafka-connect:8083
+    networks:
+      - app-net
+
       
   backend:
     build:
@@ -42,7 +72,11 @@ services:
       - kafka-connect
       - postgres
     ports:
-      - "8080:8080"
+      - "8070:8070"
+    environment:
+      - ASPNETCORE_URLS=http://+:8070
+    networks:
+      - app-net
       
   frontend:
     build:
